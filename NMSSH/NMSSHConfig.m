@@ -12,9 +12,6 @@ typedef enum {
 
 @interface NMSSHHostConfig ()
 @property(nonatomic, strong) NSArray *hostPatterns;
-@property(nonatomic, strong) NSString *hostname;
-@property(nonatomic, readwrite) NSInteger port;
-@property(nonatomic, strong) NSArray *identityFiles;
 @end
 
 @implementation NMSSHHostConfig
@@ -22,11 +19,41 @@ typedef enum {
 - (id)init {
     self = [super init];
     if (self != nil) {
-        [self setPort:22];
         [self setHostPatterns:@[ ]];
         [self setIdentityFiles:@[ ]];
     }
     return self;
+}
+
+- (NSArray *)arrayByRemovingDuplicateElementsFromArray:(NSArray *)array {
+    NSMutableArray *deduped = [NSMutableArray array];
+    for (NSObject *object in array) {
+        if (![deduped containsObject:object]) {
+            [deduped addObject:object];
+        }
+    }
+    return deduped;
+}
+
+- (NSArray *)mergedArray:(NSArray *)firstArray withArray:(NSArray *)secondArray {
+    NSArray *concatenated = [firstArray arrayByAddingObjectsFromArray:secondArray];
+    return [self arrayByRemovingDuplicateElementsFromArray:concatenated];
+}
+
+- (void)mergeFrom:(NMSSHHostConfig *)other {
+    [self setHostPatterns:[self mergedArray:self.hostPatterns
+                                  withArray:other.hostPatterns]];
+    if (!self.hostname) {
+        [self setHostname:other.hostname];
+    }
+    if (!self.user) {
+        [self setUser:other.user];
+    }
+    if (!self.port) {
+        [self setPort:other.port];
+    }
+    [self setIdentityFiles:[self mergedArray:self.identityFiles
+                                   withArray:other.identityFiles]];
 }
 
 @end
@@ -134,8 +161,17 @@ typedef enum {
             NSString *portString = [arguments substringWithRange:valueRange];
             NSInteger port = [portString intValue];
             if (port >= 0) {
-                [config setPort:(port & 0xffff)];
+                [config setPort:@(port & 0xffff)];
             }
+        }
+    }
+    else if ([keyword localizedCaseInsensitiveCompare:@"user"] == NSOrderedSame &&
+             [array count]) {
+        NMSSHHostConfig *config = [array lastObject];
+        NSRange valueRange = [self rangeOfFirstTokenInString:arguments suffix:NULL];
+        if (valueRange.location != NSNotFound &&
+            valueRange.length > 0) {
+            [config setUser:[arguments substringWithRange:valueRange]];
         }
     }
     else if ([keyword localizedCaseInsensitiveCompare:@"identityfile"] == NSOrderedSame &&
@@ -224,6 +260,9 @@ typedef enum {
 // -----------------------------------------------------------------------------
 
 - (NMSSHHostConfig *)hostConfigForHost:(NSString *)host {
+    NMSSHHostConfig *combinedConfig = [[NMSSHHostConfig alloc] init];
+    BOOL foundAny = NO;
+
     for (NMSSHHostConfig *config in _hostConfigs) {
         NMSSHConfigMatch match = NMSSHConfigMatchNone;
         for (NSString *pattern in config.hostPatterns) {
@@ -244,11 +283,12 @@ typedef enum {
             }
         }
         if (match == NMSSHConfigMatchPositive) {
-            return config;
+            [combinedConfig mergeFrom:config];
+            foundAny = YES;
         }
     }
 
-    return nil;
+    return foundAny ? combinedConfig : nil;
 }
 
 // A pattern list is a comma-delimited sequence of subpatterns. A subpattern is a string with

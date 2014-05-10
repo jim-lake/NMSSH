@@ -1,4 +1,5 @@
 #import "NMSSHSession.h"
+#import "NMSSHConfig.h"
 #import "NMSSH+Protected.h"
 
 @interface NMSSHSession ()
@@ -14,6 +15,7 @@
 @property (nonatomic, strong) NMSSHChannel *channel;
 @property (nonatomic, strong) NMSFTP *sftp;
 @property (nonatomic, strong) NSNumber *port;
+@property (nonatomic, strong) NMSSHHostConfig *synthesizedConfig;
 @end
 
 @implementation NMSSHSession
@@ -49,6 +51,45 @@
     }
 
     return self;
+}
+
+- (instancetype)initWithHost:(NSString *)host
+                     configs:(NSArray *)configs
+             withDefaultPort:(NSInteger)defaultPort
+             defaultUsername:(NSString *)defaultUsername {
+    NMSSHHostConfig *config = [[self class] hostConfigFromChain:configs
+                                                        forHost:host
+                                                withDefaultPort:defaultPort
+                                                defaultUsername:defaultUsername];
+    self = [self initWithHost:config.hostname
+                         port:[config.port integerValue]
+                  andUsername:config.user];
+    if (self) {
+        [self setSynthesizedConfig:config];
+    }
+
+    return self;
+}
+
++ (NMSSHHostConfig *)hostConfigFromChain:(NSArray *)configs
+                                 forHost:(NSString *)host
+                         withDefaultPort:(NSInteger)defaultPort
+                         defaultUsername:(NSString *)defaultUsername {
+    NMSSHHostConfig *result = [[NMSSHHostConfig alloc] init];
+    for (NMSSHConfig *config in configs) {
+        NMSSHHostConfig *hostConfig = [config hostConfigForHost:host];
+        if (hostConfig) {
+            [result mergeFrom:hostConfig];
+        }
+    }
+
+    NMSSHHostConfig *defaultHostConfig = [[NMSSHHostConfig alloc] init];
+    defaultHostConfig.hostname = host;
+    defaultHostConfig.port = @(defaultPort);
+    defaultHostConfig.user = defaultUsername;
+    [result mergeFrom:defaultHostConfig];
+
+    return result;
 }
 
 - (instancetype)initWithHost:(NSString *)host andUsername:(NSString *)username {

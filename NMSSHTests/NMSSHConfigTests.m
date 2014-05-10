@@ -41,7 +41,7 @@
     NMSSHHostConfig *hostConfig = hostConfigs[0];
     XCTAssertEqualObjects(hostConfig.hostPatterns, @[ @"pattern" ], @"Patterns don't match");
     XCTAssertEqualObjects(hostConfig.hostname, @"hostname", @"Hostnames don't match");
-    XCTAssertEqual(hostConfig.port, 1234, @"Port doesn't match");
+    XCTAssertEqualObjects(hostConfig.port, @1234, @"Port doesn't match");
     XCTAssertEqualObjects(hostConfig.identityFiles, @[ @"id_file" ], @"Identity files don't match");
 }
 
@@ -66,7 +66,7 @@
     NMSSHHostConfig *hostConfig = hostConfigs[0];
     XCTAssertEqualObjects(hostConfig.hostPatterns, @[ @"pattern" ], @"Patterns don't match");
     XCTAssertEqualObjects(hostConfig.hostname, @"hostname", @"Hostnames don't match");
-    XCTAssertEqual(hostConfig.port, 1234, @"Port doesn't match");
+    XCTAssertEqualObjects(hostConfig.port, @1234, @"Port doesn't match");
     XCTAssertEqualObjects(hostConfig.identityFiles, @[ @"id_file" ], @"Identity files don't match");
 }
 
@@ -91,7 +91,7 @@
     NMSSHHostConfig *hostConfig = hostConfigs[0];
     XCTAssertEqualObjects(hostConfig.hostPatterns, @[ @"pattern" ], @"Patterns don't match");
     XCTAssertEqualObjects(hostConfig.hostname, @"hostname", @"Hostnames don't match");
-    XCTAssertEqual(hostConfig.port, 1234, @"Port doesn't match");
+    XCTAssertEqualObjects(hostConfig.port, @1234, @"Port doesn't match");
     XCTAssertEqualObjects(hostConfig.identityFiles, @[ @"id_file" ], @"Identity files don't match");
 }
 
@@ -112,7 +112,7 @@
     NMSSHHostConfig *hostConfig = hostConfigs[0];
     XCTAssertEqualObjects(hostConfig.hostPatterns, @[ @"pattern" ], @"Patterns don't match");
     XCTAssertEqualObjects(hostConfig.hostname, @"hostname", @"Hostnames don't match");
-    XCTAssertEqual(hostConfig.port, 1234, @"Port doesn't match");
+    XCTAssertEqualObjects(hostConfig.port, @1234, @"Port doesn't match");
     XCTAssertEqualObjects(hostConfig.identityFiles, @[ @"id_file" ], @"Identity files don't match");
 }
 
@@ -132,7 +132,7 @@
     NMSSHHostConfig *hostConfig = hostConfigs[0];
     XCTAssertEqualObjects(hostConfig.hostPatterns, @[ @"pattern" ], @"Patterns don't match");
     XCTAssertEqualObjects(hostConfig.hostname, @"hostname", @"Hostnames don't match");
-    XCTAssertEqual(hostConfig.port, 22, @"Port doesn't match");
+    XCTAssertNil(hostConfig.port, @"Port not nil");
     XCTAssertEqualObjects(hostConfig.identityFiles, @[ @"id_file" ], @"Identity files don't match");
 }
 
@@ -237,14 +237,14 @@
     NMSSHHostConfig *hostConfig = hostConfigs[0];
     XCTAssertEqualObjects(hostConfig.hostPatterns, @[ @"pattern1" ], @"Patterns don't match");
     XCTAssertEqualObjects(hostConfig.hostname, @"hostname1", @"Hostnames don't match");
-    XCTAssertEqual(hostConfig.port, 1, @"Port doesn't match");
+    XCTAssertEqualObjects(hostConfig.port, @1, @"Port doesn't match");
     XCTAssertEqualObjects(hostConfig.identityFiles, @[ @"id_file1" ],
                           @"Identity files don't match");
 
     hostConfig = hostConfigs[1];
     XCTAssertEqualObjects(hostConfig.hostPatterns, @[ @"pattern2" ], @"Patterns don't match");
     XCTAssertEqualObjects(hostConfig.hostname, @"hostname2", @"Hostnames don't match");
-    XCTAssertEqual(hostConfig.port, 2, @"Port doesn't match");
+    XCTAssertEqualObjects(hostConfig.port, @2, @"Port doesn't match");
     XCTAssertEqualObjects(hostConfig.identityFiles, @[ @"id_file2" ],
                           @"Identity files don't match");
 }

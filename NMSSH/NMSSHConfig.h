@@ -19,17 +19,22 @@
  user-specified host name (this is useful for manipulating unqualified names).
  This may be an IP address.
  */
-@property(nonatomic, readonly) NSString *hostname;
+@property(nonatomic, strong) NSString *hostname;
 
 /**
- Specifies the port number to connect on the remote host. The default is 22.
+ Specifies the user name to log in as.
  */
-@property(nonatomic, readonly) NSInteger port;
+@property(nonatomic, strong) NSString *user;
 
 /**
- Specifies alist of file names from which the user's DSA, ECDSA or RSA
+ Specifies the port number to connect on the remote host.
+ */
+@property(nonatomic, strong) NSNumber *port;
+
+/**
+ Specifies a list of file names from which the user's DSA, ECDSA or RSA
  authentication identity are read. It is empty by default. Tildes will be
- expanded to the user's home directory. The client should perform the following
+ expanded to home directories. The client should perform the following
  substitutions on each file name:
    "%d" should be replaced with the local user home directory
    "%u" should be replaced with the local user name
@@ -38,7 +43,11 @@
    "%r" should be replaced with the remote user name
  If multiple identities are provided, the client should try them in order.
  */
-@property(nonatomic, readonly) NSArray *identityFiles;
+@property(nonatomic, strong) NSArray *identityFiles;
+
+/** Copies values from {other} unless they are already set. */
+- (void)mergeFrom:(NMSSHHostConfig *)other;
+
 @end
 
 /// -----------------------------------------------------------------------------
