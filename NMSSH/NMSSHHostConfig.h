@@ -42,7 +42,7 @@
  */
 @property(nonatomic, strong) NSArray *identityFiles;
 
-/** Copies values from {other} unless they are already set in {self}. */
+/** Merges values from {other} unless they are already set in {self}. */
 - (void)mergeFrom:(NMSSHHostConfig *)other;
 
 @end

@@ -1,6 +1,7 @@
 #import "NMSSHSession.h"
-#import "NMSSHConfig.h"
 #import "NMSSH+Protected.h"
+#import "NMSSHConfig.h"
+#import "NMSSHHostConfig.h"
 
 @interface NMSSHSession ()
 @property (nonatomic, assign) LIBSSH2_AGENT *agent;
@@ -76,6 +77,7 @@
                          withDefaultPort:(NSInteger)defaultPort
                          defaultUsername:(NSString *)defaultUsername {
     NMSSHHostConfig *result = [[NMSSHHostConfig alloc] init];
+
     for (NMSSHConfig *config in configs) {
         NMSSHHostConfig *hostConfig = [config hostConfigForHost:host];
         if (hostConfig) {
@@ -87,6 +89,7 @@
     defaultHostConfig.hostname = host;
     defaultHostConfig.port = @(defaultPort);
     defaultHostConfig.user = defaultUsername;
+
     [result mergeFrom:defaultHostConfig];
 
     return result;

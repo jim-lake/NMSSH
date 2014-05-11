@@ -118,9 +118,10 @@ typedef NS_ENUM(NSInteger, NMSSHKnownHostStatus) {
  provided value will override {host}, {defaultUsername} or {defaultPort}. If no
  match is found then {host} is used as the host name.
 
- @param host The server hostname. This is used to look up an entry in {config}.
- @param configs Configuration settings that can specify aliases, identities,
-     etc. {configs} are ordered from highest to lowest priority.
+ @param host Host to search {configs} with. If no matching config specifies a
+     hostname, then {host} is the server hostname.
+ @param configs An array of NMSSHHostConfig objects ordered from highest to
+     lowest priority
  @param defaultPort The port number (may be overridden by a config)
  @param defaultUsername A valid username the server will accept (may be
      overridden by a config)

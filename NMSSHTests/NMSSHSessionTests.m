@@ -1,5 +1,6 @@
 #import "NMSSHSessionTests.h"
 #import "NMSSHConfig.h"
+#import "NMSSHHostConfig.h"
 #import "ConfigHelper.h"
 
 #import <NMSSH/NMSSH.h>
