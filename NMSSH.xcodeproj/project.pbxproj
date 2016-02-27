@@ -19,6 +19,7 @@
 		6EB9E8061887F52C003A9BE4 /* NMSFTPFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EB9E8041887F52C003A9BE4 /* NMSFTPFile.m */; };
 		6EB9E8071887F533003A9BE4 /* NMSFTPFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EB9E8041887F52C003A9BE4 /* NMSFTPFile.m */; };
 		6EE908A5188D597300997E11 /* NMSFTPFileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EE908A4188D597300997E11 /* NMSFTPFileTests.m */; };
+		A67E560B1C8230AB00133D75 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A67E560A1C8230AA00133D75 /* libcrypto.a */; };
 		A6AE1EBB191C7B5800780C19 /* NMSSHConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = A6AE1EB9191C7B5800780C19 /* NMSSHConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A6AE1EBC191C7B5800780C19 /* NMSSHConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = A6AE1EBA191C7B5800780C19 /* NMSSHConfig.m */; };
 		A6AE1EBE191C835900780C19 /* NMSSHConfigTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A6AE1EBD191C835900780C19 /* NMSSHConfigTests.m */; };
@@ -92,6 +93,7 @@
 		6EB9E8031887F52C003A9BE4 /* NMSFTPFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NMSFTPFile.h; sourceTree = "<group>"; };
 		6EB9E8041887F52C003A9BE4 /* NMSFTPFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NMSFTPFile.m; sourceTree = "<group>"; };
 		6EE908A4188D597300997E11 /* NMSFTPFileTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NMSFTPFileTests.m; sourceTree = "<group>"; };
+		A67E560A1C8230AA00133D75 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
 		A6AE1EB9191C7B5800780C19 /* NMSSHConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NMSSHConfig.h; sourceTree = "<group>"; };
 		A6AE1EBA191C7B5800780C19 /* NMSSHConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NMSSHConfig.m; sourceTree = "<group>"; };
 		A6AE1EBD191C835900780C19 /* NMSSHConfigTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NMSSHConfigTests.m; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 			files = (
 				E4E96D88158E10FD002E6E0A /* Cocoa.framework in Frameworks */,
 				E4D99AA415DE15B300EB5615 /* libz.dylib in Frameworks */,
+				A67E560B1C8230AB00133D75 /* libcrypto.a in Frameworks */,
 				E4D99AA215DE15A600EB5615 /* libcrypto.dylib in Frameworks */,
 				18B4FE91188CB2BB004E05FF /* libssh2.a in Frameworks */,
 				E4D99A9D15DE149D00EB5615 /* libssl.dylib in Frameworks */,
@@ -189,6 +192,7 @@
 		18B4FE8C188CB2BB004E05FF /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				A67E560A1C8230AA00133D75 /* libcrypto.a */,
 				18B4FE8D188CB2BB004E05FF /* libssh2.a */,
 			);
 			path = lib;
@@ -585,6 +589,7 @@
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/system",
 					"$(SRCROOT)/NMSSH-OSX/Libraries/lib",
+					"$(PROJECT_DIR)/NMSSH-OSX/Libraries/lib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
@@ -607,6 +612,7 @@
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/system",
 					"$(SRCROOT)/NMSSH-OSX/Libraries/lib",
+					"$(PROJECT_DIR)/NMSSH-OSX/Libraries/lib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
