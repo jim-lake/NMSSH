@@ -541,7 +541,7 @@
                                                   (unsigned long)fileinfo.st_size, 0, 0);;
 
     if (channel == NULL) {
-        NMSSHLogError(@"Unable to open SCP session");
+        NMSSHLogError(@"Unable to open SCP session: %@", self.session.lastError);
         fclose(local);
 
         return NO;
@@ -623,7 +623,7 @@
     LIBSSH2_CHANNEL *channel = libssh2_scp_recv(self.session.rawSession, [remotePath UTF8String], &fileinfo);
 
     if (channel == NULL) {
-        NMSSHLogError(@"Unable to open SCP session");
+        NMSSHLogError(@"Unable to open SCP session: %@", self.session.lastError);
         return NO;
     }
 

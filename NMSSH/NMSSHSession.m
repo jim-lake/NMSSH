@@ -305,7 +305,7 @@
 
     // Start the session
     if (libssh2_session_handshake(self.session, CFSocketGetNative(_socket))) {
-        NMSSHLogError(@"Failure establishing SSH session");
+        NMSSHLogError(@"Failure establishing SSH session: %@", self.lastError);
         [self disconnect];
 
         return NO;
