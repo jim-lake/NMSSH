@@ -409,13 +409,14 @@
 			isa = PBXProject;
 			attributes = {
 				LastTestingUpgradeCheck = 0510;
-				LastUpgradeCheck = 1000;
+				LastUpgradeCheck = 1020;
 			};
 			buildConfigurationList = E4E96D7D158E10FD002E6E0A /* Build configuration list for PBXProject "NMSSH" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = E4E96D78158E10FD002E6E0A;
@@ -595,7 +596,11 @@
 					"$(SRCROOT)/NMSSH-OSX/Libraries/lib",
 					"$(PROJECT_DIR)/NMSSH-OSX/Libraries/lib",
 				);
+<<<<<<< HEAD
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+=======
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+>>>>>>> b3bba2a (GEORGE: bump xcode to 10.2. Bump deployment target to 10.12.)
 				PRODUCT_BUNDLE_IDENTIFIER = "se.ninemuses.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
@@ -620,7 +625,11 @@
 					"$(SRCROOT)/NMSSH-OSX/Libraries/lib",
 					"$(PROJECT_DIR)/NMSSH-OSX/Libraries/lib",
 				);
+<<<<<<< HEAD
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+=======
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+>>>>>>> b3bba2a (GEORGE: bump xcode to 10.2. Bump deployment target to 10.12.)
 				PRODUCT_BUNDLE_IDENTIFIER = "se.ninemuses.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
