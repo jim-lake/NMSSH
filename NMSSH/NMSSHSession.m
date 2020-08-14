@@ -489,6 +489,13 @@
     return self.isAuthorized;
 }
 
+- (void)setAgent:(LIBSSH2_AGENT *)agent {
+    _agent = agent;
+    if (self.authSock != nil) {
+        libssh2_agent_set_identity_path(agent, self.authSock.UTF8String);
+    }
+}
+
 - (BOOL)connectToAgent {
     if (![self supportsAuthenticationMethod:@"publickey"]) {
         return NO;
