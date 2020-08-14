@@ -491,7 +491,7 @@
 
 - (void)setAgent:(LIBSSH2_AGENT *)agent {
     _agent = agent;
-    if (self.authSock != nil) {
+    if (self.authSock != nil && agent != nil) {
         libssh2_agent_set_identity_path(agent, self.authSock.UTF8String);
     }
 }
