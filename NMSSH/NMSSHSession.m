@@ -20,6 +20,17 @@
 @property (nonatomic, assign) LIBSSH2_SESSION *sessionToFree;
 @end
 
+void (^gNMSSHTraceCallback)(NSData *);
+
+static void nmssh_trace_callback(LIBSSH2_SESSION *session,
+                                 void *context,
+                                 const char *data,
+                                 size_t length) {
+    if (gNMSSHTraceCallback) {
+        gNMSSHTraceCallback([NSData dataWithBytes:data length:length]);
+    }
+}
+
 @implementation NMSSHSession
 
 // -----------------------------------------------------------------------------
@@ -292,6 +303,9 @@
     // Create a session instance
     [self setSession:libssh2_session_init_ex(NULL, NULL, NULL, (__bridge void *)(self))];
 
+    libssh2_trace_sethandler(self.session, NULL, &nmssh_trace_callback);
+    libssh2_trace(self.session, -1);
+    
     // Set a callback for disconnection
     libssh2_session_callback_set(self.session, LIBSSH2_CALLBACK_DISCONNECT, &disconnect_callback);
 
