@@ -782,6 +782,7 @@ static void nmssh_trace_callback(LIBSSH2_SESSION *session,
         keybit |= LIBSSH2_KNOWNHOST_TYPE_PLAIN;
     }
 
+    NMSSHLogInfo(@"Add hostname %@, salt %@ with keybit flags %x to known hosts", hostname, salt, keybit);
     int result = libssh2_knownhost_addc(knownHosts,
                                         [hostname UTF8String],
                                         [salt UTF8String],
