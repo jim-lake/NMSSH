@@ -663,6 +663,26 @@ static void nmssh_trace_callback(LIBSSH2_SESSION *session,
     return status;
 }
 
+static int NMSSHKnownHostKeyFromHostKey(int keytype, int defaultValue) {
+    switch (keytype) {
+        case LIBSSH2_HOSTKEY_TYPE_DSS:
+            return LIBSSH2_KNOWNHOST_KEY_SSHDSS;
+        case LIBSSH2_HOSTKEY_TYPE_RSA:
+            return LIBSSH2_KNOWNHOST_KEY_SSHRSA;
+        case LIBSSH2_HOSTKEY_TYPE_ECDSA_256:
+            return LIBSSH2_KNOWNHOST_KEY_ECDSA_256;
+        case LIBSSH2_HOSTKEY_TYPE_ECDSA_384:
+            return LIBSSH2_KNOWNHOST_KEY_ECDSA_384;
+        case LIBSSH2_HOSTKEY_TYPE_ECDSA_521:
+            return LIBSSH2_KNOWNHOST_KEY_ECDSA_521;
+        case LIBSSH2_HOSTKEY_TYPE_ED25519:
+            return LIBSSH2_KNOWNHOST_KEY_ED25519;
+        case LIBSSH2_HOSTKEY_TYPE_UNKNOWN:
+            break;
+    }
+    return defaultValue;
+}
+
 - (NMSSHKnownHostStatus)knownHostStatusWithFile:(NSString *)filename {
     LIBSSH2_KNOWNHOSTS *knownHosts = libssh2_knownhost_init(self.session);
     if (!knownHosts) {
@@ -695,7 +715,7 @@ static void nmssh_trace_callback(LIBSSH2_SESSION *session,
         return NMSSHKnownHostStatusFailure;
     }
 
-    int keybit = (keytype == LIBSSH2_HOSTKEY_TYPE_RSA ? LIBSSH2_KNOWNHOST_KEY_SSHRSA : LIBSSH2_KNOWNHOST_KEY_SSHDSS);
+    const int keybit = NMSSHKnownHostKeyFromHostKey(keytype, LIBSSH2_KNOWNHOST_KEY_SSHDSS);
     struct libssh2_knownhost *host;
     NMSSHLogInfo(@"Check for host %@, port %@ in file %@", self.host, self.port, filename);
     int check = libssh2_knownhost_checkp(knownHosts,
@@ -767,14 +787,7 @@ static void nmssh_trace_callback(LIBSSH2_SESSION *session,
         return NO;
     }
 
-    int keybit = LIBSSH2_KNOWNHOST_KEYENC_RAW;
-    if (hktype == LIBSSH2_HOSTKEY_TYPE_RSA) {
-        keybit |= LIBSSH2_KNOWNHOST_KEY_SSHRSA;
-    }
-    else {
-        keybit |= LIBSSH2_KNOWNHOST_KEY_SSHDSS;
-    }
-
+    int keybit = NMSSHKnownHostKeyFromHostKey(hktype, LIBSSH2_KNOWNHOST_KEYENC_RAW);
     if (salt) {
         keybit |= LIBSSH2_KNOWNHOST_TYPE_SHA1;
     }
