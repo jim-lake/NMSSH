@@ -596,15 +596,7 @@
 					"$(SRCROOT)/NMSSH-OSX/Libraries/lib",
 					"$(PROJECT_DIR)/NMSSH-OSX/Libraries/lib",
 				);
-<<<<<<< HEAD
-<<<<<<< HEAD
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-=======
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
->>>>>>> b3bba2a (GEORGE: bump xcode to 10.2. Bump deployment target to 10.12.)
-=======
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
->>>>>>> c4c3100 (Increase deployment target to 10.14)
 				PRODUCT_BUNDLE_IDENTIFIER = "se.ninemuses.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
@@ -629,15 +621,7 @@
 					"$(SRCROOT)/NMSSH-OSX/Libraries/lib",
 					"$(PROJECT_DIR)/NMSSH-OSX/Libraries/lib",
 				);
-<<<<<<< HEAD
-<<<<<<< HEAD
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-=======
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
->>>>>>> b3bba2a (GEORGE: bump xcode to 10.2. Bump deployment target to 10.12.)
-=======
 				MACOSX_DEPLOYMENT_TARGET = 10.14;
->>>>>>> c4c3100 (Increase deployment target to 10.14)
 				PRODUCT_BUNDLE_IDENTIFIER = "se.ninemuses.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = framework;
