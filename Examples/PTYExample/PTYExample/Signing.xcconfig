@@ -1,0 +1,7 @@
+// Signing Configuration
+// Copy this file to Signing-Local.xcconfig and set your development team ID and bundle identifier
+// Add Signing-Local.xcconfig to .gitignore to keep personal settings out of version control
+
+DEVELOPMENT_TEAM = 
+CODE_SIGN_STYLE = Automatic
+PRODUCT_BUNDLE_IDENTIFIER = com.example.PTYExample
